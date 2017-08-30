@@ -1,0 +1,84 @@
+{
+  "_args": [
+    [
+      "cordova-plugin-toaster",
+      "/home/oscar/Documents/GIT/appRobot"
+    ]
+  ],
+  "_from": "cordova-plugin-toaster@latest",
+  "_id": "cordova-plugin-toaster@0.0.2",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/cordova-plugin-toaster",
+  "_nodeVersion": "5.3.0",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/cordova-plugin-toaster-0.0.2.tgz_1462972863871_0.542690931353718"
+  },
+  "_npmUser": {
+    "email": "yaroslav0507@gmail.com",
+    "name": "yaroslav0507"
+  },
+  "_npmVersion": "3.8.6",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "cordova-plugin-toaster",
+    "raw": "cordova-plugin-toaster",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-toaster/-/cordova-plugin-toaster-0.0.2.tgz",
+  "_shasum": "fb138af0213ed70faefa02a2fdd8cdcbaa8225d7",
+  "_shrinkwrap": null,
+  "_spec": "cordova-plugin-toaster",
+  "_where": "/home/oscar/Documents/GIT/appRobot",
+  "author": {
+    "name": "Yaroslav Zaklinskyi"
+  },
+  "bugs": {
+    "url": "https://github.com/yaroslav0507/cordova-plugin-toaster/issues"
+  },
+  "cordova": {
+    "id": "cordova-plugin-toaster",
+    "platforms": [
+      "android"
+    ]
+  },
+  "dependencies": {},
+  "description": "Cordova Toaster Plugin",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "fb138af0213ed70faefa02a2fdd8cdcbaa8225d7",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-toaster/-/cordova-plugin-toaster-0.0.2.tgz"
+  },
+  "gitHead": "4baacf12283b3ba2083ecb93fb671c72790a1d44",
+  "homepage": "https://github.com/yaroslav0507/cordova-plugin-toaster#readme",
+  "keywords": [
+    "cordova",
+    "cordova-ios",
+    "ecosystem:cordova",
+    "toaster"
+  ],
+  "license": "Apache 2.0",
+  "maintainers": [
+    {
+      "name": "yaroslav0507",
+      "email": "yaroslav0507@gmail.com"
+    }
+  ],
+  "name": "cordova-plugin-toaster",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yaroslav0507/cordova-plugin-toaster.git"
+  },
+  "scripts": {},
+  "version": "0.0.2"
+}

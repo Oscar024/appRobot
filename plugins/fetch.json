@@ -1,0 +1,50 @@
+{
+    "cordova-plugin-whitelist": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-whitelist@1"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-compat": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-compat"
+        },
+        "is_top_level": false,
+        "variables": {}
+    },
+    "cordova-plugin-bluetooth-serial": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-bluetooth-serial"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-dialogs": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-dialogs"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-x-toast": {
+        "source": {
+            "type": "registry",
+            "id": "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-toaster": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-toaster"
+        },
+        "is_top_level": true,
+        "variables": {}
+    }
+}
