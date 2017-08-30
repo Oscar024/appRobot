@@ -2,6 +2,7 @@
 var result, dispositivos;
 var size = 100;
 var bluetoothdata = 0;
+var intervalID;
 
 document.addEventListener("deviceready", function() {
   console.log("Device is ready");
@@ -55,8 +56,10 @@ function leer() {
 function enable() {
   bluetoothSerial.enable(function(success) {
     console.log(success)
+    return 1;
   }, function(failure) {
     conslole.log(failure)
+    return 0;
   });
 }
 
@@ -101,6 +104,31 @@ function listaU() {
   });
 }
 
+function isBtEnabled() {
+  bluetoothSerial.isEnabled(function(success) {
+    console.log(success);
+    return 1;
+  }, function(failure) {
+    console.log(failure)
+    navigator.showToast("No está habilitado el Bluetooth");
+    enable();
+    return 0;
+  });
+}
+
+function isBtConnected() {
+  bluetoothSerial.isConnected(function(success) {
+    console.log(success);
+    navigator.showToast("isConnected");
+    return 1;
+  }, function(failure) {
+    console.log(failure)
+    navigator.showToast("No está conectado");
+    conectar("30:14:06:20:12:25");
+    return 0;
+  });
+}
+
 function seleccionar() {
   result = $("#exampleSelect1 option:selected").text();
   conectar(result);
@@ -108,7 +136,10 @@ function seleccionar() {
 }
 
 function seleccionar2() {
-  conectar("30:14:06:20:12:25");
+
+  while (isBtEnabled()==0);
+  while (isBtConnected()==0);
+
 
 }
 
@@ -495,20 +526,20 @@ function fuzzy_system_single1(input) {
   linspace(y, 0, 100, size);
   //printArray(x,size);
   //Funciones de membrecia de antecedente
-  tri_mf(ante_mf1, x, ante_mf1_parameters[0],ante_mf1_parameters[1],ante_mf1_parameters[2]);
-  tri_mf(ante_mf2, x, ante_mf2_parameters[0],ante_mf2_parameters[1],ante_mf2_parameters[2]);
-  tri_mf(ante_mf3, x, ante_mf3_parameters[0],ante_mf3_parameters[1],ante_mf3_parameters[2]);
+  tri_mf(ante_mf1, x, ante_mf1_parameters[0], ante_mf1_parameters[1], ante_mf1_parameters[2]);
+  tri_mf(ante_mf2, x, ante_mf2_parameters[0], ante_mf2_parameters[1], ante_mf2_parameters[2]);
+  tri_mf(ante_mf3, x, ante_mf3_parameters[0], ante_mf3_parameters[1], ante_mf3_parameters[2]);
 
   //Funciones de membrecia de consecuente
-  tri_mf(cons_mf1, y, cons_mf1_parameters[0],cons_mf1_parameters[1],cons_mf1_parameters[2]);
-  tri_mf(cons_mf2, y, cons_mf2_parameters[0],cons_mf2_parameters[1],cons_mf2_parameters[2]);
-  tri_mf(cons_mf3, y, cons_mf3_parameters[0],cons_mf3_parameters[1],cons_mf3_parameters[2]);
+  tri_mf(cons_mf1, y, cons_mf1_parameters[0], cons_mf1_parameters[1], cons_mf1_parameters[2]);
+  tri_mf(cons_mf2, y, cons_mf2_parameters[0], cons_mf2_parameters[1], cons_mf2_parameters[2]);
+  tri_mf(cons_mf3, y, cons_mf3_parameters[0], cons_mf3_parameters[1], cons_mf3_parameters[2]);
 
   //Fuzzy inference system
   //for(i=0;i<size;i++){
-  w1 = triangular(ante_mf1_parameters[0],ante_mf1_parameters[1],ante_mf1_parameters[2], input);
-  w2 = triangular(ante_mf2_parameters[0],ante_mf2_parameters[1],ante_mf2_parameters[2], input);
-  w3 = triangular(ante_mf3_parameters[0],ante_mf3_parameters[1],ante_mf3_parameters[2], input);
+  w1 = triangular(ante_mf1_parameters[0], ante_mf1_parameters[1], ante_mf1_parameters[2], input);
+  w2 = triangular(ante_mf2_parameters[0], ante_mf2_parameters[1], ante_mf2_parameters[2], input);
+  w3 = triangular(ante_mf3_parameters[0], ante_mf3_parameters[1], ante_mf3_parameters[2], input);
   //If error es negativo then w1 es rápido
   qualified(qualified_cons_mf1, cons_mf3, w1);
   //If error es cero then w1 es rápido
@@ -551,20 +582,20 @@ function fuzzy_system_single2(input) {
   linspace(y, 0, 100, size);
   //printArray(x,size);
   //Funciones de membrecia de antecedente
-  tri_mf(ante_mf1, x, ante_mf1_parameters[0],ante_mf1_parameters[1],ante_mf1_parameters[2]);
-  tri_mf(ante_mf2, x, ante_mf2_parameters[0],ante_mf2_parameters[1],ante_mf2_parameters[2]);
-  tri_mf(ante_mf3, x, ante_mf3_parameters[0],ante_mf3_parameters[1],ante_mf3_parameters[2]);
+  tri_mf(ante_mf1, x, ante_mf1_parameters[0], ante_mf1_parameters[1], ante_mf1_parameters[2]);
+  tri_mf(ante_mf2, x, ante_mf2_parameters[0], ante_mf2_parameters[1], ante_mf2_parameters[2]);
+  tri_mf(ante_mf3, x, ante_mf3_parameters[0], ante_mf3_parameters[1], ante_mf3_parameters[2]);
 
   //Funciones de membrecia de consecuente
-  tri_mf(cons_mf1, y, cons_mf1_parameters[0],cons_mf1_parameters[1],cons_mf1_parameters[2]);
-  tri_mf(cons_mf2, y, cons_mf2_parameters[0],cons_mf2_parameters[1],cons_mf2_parameters[2]);
-  tri_mf(cons_mf3, y, cons_mf3_parameters[0],cons_mf3_parameters[1],cons_mf3_parameters[2]);
+  tri_mf(cons_mf1, y, cons_mf1_parameters[0], cons_mf1_parameters[1], cons_mf1_parameters[2]);
+  tri_mf(cons_mf2, y, cons_mf2_parameters[0], cons_mf2_parameters[1], cons_mf2_parameters[2]);
+  tri_mf(cons_mf3, y, cons_mf3_parameters[0], cons_mf3_parameters[1], cons_mf3_parameters[2]);
 
   //Fuzzy inference system
   //for(i=0;i<size;i++){
-  w1 = triangular(ante_mf1_parameters[0],ante_mf1_parameters[1],ante_mf1_parameters[2], input);
-  w2 = triangular(ante_mf2_parameters[0],ante_mf2_parameters[1],ante_mf2_parameters[2], input);
-  w3 = triangular(ante_mf3_parameters[0],ante_mf3_parameters[1],ante_mf3_parameters[2], input);
+  w1 = triangular(ante_mf1_parameters[0], ante_mf1_parameters[1], ante_mf1_parameters[2], input);
+  w2 = triangular(ante_mf2_parameters[0], ante_mf2_parameters[1], ante_mf2_parameters[2], input);
+  w3 = triangular(ante_mf3_parameters[0], ante_mf3_parameters[1], ante_mf3_parameters[2], input);
   //If error es negativo then w2 es lento
   qualified(qualified_cons_mf1, cons_mf1, w1);
   //If error es cero then w2 es rápido
@@ -637,100 +668,107 @@ function setOutputFuzzy() {
   wait(delayms);
 }
 
-function fuzzy_mero1()
-{
-    input = getInput();
-    var w1, w2, w3;
-    var output = new Array(size);
-    var overall_out_mf = new Array(size);
-    var qualified_cons_mf1 = new Array(size);
-    var qualified_cons_mf2 = new Array(size)
-    var qualified_cons_mf3 = new Array(size)
-    var x = new Array(size);
-    var y = new Array(size);
-    var ante_mf3 = new Array(size);
-    var cons_mf3 = new Array(size);
-    var ante_mf2 = new Array(size);
-    var cons_mf2 = new Array(size);
-    var ante_mf1 = new Array(size);
-    var cons_mf1 = new Array(size);
-    var i;
+function fuzzy_mero1() {
+  input = getInput();
+  var w1, w2, w3;
+  var output = new Array(size);
+  var overall_out_mf = new Array(size);
+  var qualified_cons_mf1 = new Array(size);
+  var qualified_cons_mf2 = new Array(size)
+  var qualified_cons_mf3 = new Array(size)
+  var x = new Array(size);
+  var y = new Array(size);
+  var ante_mf3 = new Array(size);
+  var cons_mf3 = new Array(size);
+  var ante_mf2 = new Array(size);
+  var cons_mf2 = new Array(size);
+  var ante_mf1 = new Array(size);
+  var cons_mf1 = new Array(size);
+  var i;
 
-    linspace(x,-2,2,size);
-    linspace(y,0,100,size);
-    //printArray(x,SIZE);
-    //Funciones de membrecia de antecedente
-    tri_mf(ante_mf1,x,-3.6, -2, -0.4);
-    tri_mf(ante_mf2,x,-1.6, 0, 1.6);
-    tri_mf(ante_mf3,x,0.4, 2, 3.6);
+  linspace(x, -2, 2, size);
+  linspace(y, 0, 100, size);
+  //printArray(x,SIZE);
+  //Funciones de membrecia de antecedente
+  tri_mf(ante_mf1, x, -3.6, -2, -0.4);
+  tri_mf(ante_mf2, x, -1.6, 0, 1.6);
+  tri_mf(ante_mf3, x, 0.4, 2, 3.6);
 
-    //Funciones de membrecia de consecuente
-    tri_mf(cons_mf1,y,-40, 0, 40);
-    tri_mf(cons_mf2,y,10, 50, 90);
-    tri_mf(cons_mf3,y,60, 100, 140);
+  //Funciones de membrecia de consecuente
+  tri_mf(cons_mf1, y, -40, 0, 40);
+  tri_mf(cons_mf2, y, 10, 50, 90);
+  tri_mf(cons_mf3, y, 60, 100, 140);
 
-    //Fuzzy inference system
-    //for(i=0;i<SIZE;i++){
-        w1=triangular(-3.6, -2, -0.4,input);
-        w2=triangular(-1.6, 0, 1.6,input);
-        w3=triangular(0.4, 2, 3.6,input);
-        qualified(qualified_cons_mf1,cons_mf3,w1);
-        qualified(qualified_cons_mf2,cons_mf3,w2);
-        qualified(qualified_cons_mf3,cons_mf1,w3);
-        out_mf(overall_out_mf,qualified_cons_mf1,qualified_cons_mf2,qualified_cons_mf3);
-        output= defuzzy(y,overall_out_mf);
-        return output;
-    //}
+  //Fuzzy inference system
+  //for(i=0;i<SIZE;i++){
+  w1 = triangular(-3.6, -2, -0.4, input);
+  w2 = triangular(-1.6, 0, 1.6, input);
+  w3 = triangular(0.4, 2, 3.6, input);
+  qualified(qualified_cons_mf1, cons_mf3, w1);
+  qualified(qualified_cons_mf2, cons_mf3, w2);
+  qualified(qualified_cons_mf3, cons_mf1, w3);
+  out_mf(overall_out_mf, qualified_cons_mf1, qualified_cons_mf2, qualified_cons_mf3);
+  output = defuzzy(y, overall_out_mf);
+  return output;
+  //}
 }
 
-function fuzzy_mero2( input, size)
-{
+function fuzzy_mero2(input, size) {
 
-    var w1, w2, w3;
-    var output = new Array(size);
-    var overall_out_mf = new Array(size);
-    var qualified_cons_mf1 = new Array(size);
-    var qualified_cons_mf2 = new Array(size)
-    var qualified_cons_mf3 = new Array(size)
-    var x = new Array(size);
-    var y = new Array(size);
-    var ante_mf3 = new Array(size);
-    var cons_mf3 = new Array(size);
-    var ante_mf2 = new Array(size);
-    var cons_mf2 = new Array(size);
-    var ante_mf1 = new Array(size);
-    var cons_mf1 = new Array(size);
-    var i;
+  var w1, w2, w3;
+  var output = new Array(size);
+  var overall_out_mf = new Array(size);
+  var qualified_cons_mf1 = new Array(size);
+  var qualified_cons_mf2 = new Array(size)
+  var qualified_cons_mf3 = new Array(size)
+  var x = new Array(size);
+  var y = new Array(size);
+  var ante_mf3 = new Array(size);
+  var cons_mf3 = new Array(size);
+  var ante_mf2 = new Array(size);
+  var cons_mf2 = new Array(size);
+  var ante_mf1 = new Array(size);
+  var cons_mf1 = new Array(size);
+  var i;
 
-    linspace(x,-2,2,size);
-    linspace(y,0,100,size);
-    //printArray(x,SIZE);
-    //Funciones de membrecia de antecedente
-    tri_mf(ante_mf1,x,-3.6, -2, -0.4);
-    tri_mf(ante_mf2,x,-1.6, 0, 1.6);
-    tri_mf(ante_mf3,x,0.4, 2, 3.6);
+  linspace(x, -2, 2, size);
+  linspace(y, 0, 100, size);
+  //printArray(x,SIZE);
+  //Funciones de membrecia de antecedente
+  tri_mf(ante_mf1, x, -3.6, -2, -0.4);
+  tri_mf(ante_mf2, x, -1.6, 0, 1.6);
+  tri_mf(ante_mf3, x, 0.4, 2, 3.6);
 
-    //Funciones de membrecia de consecuente
-    tri_mf(cons_mf1,y,-40, 0, 40);
-    tri_mf(cons_mf2,y,10, 50, 90);
-    tri_mf(cons_mf3,y,60, 100, 140);
+  //Funciones de membrecia de consecuente
+  tri_mf(cons_mf1, y, -40, 0, 40);
+  tri_mf(cons_mf2, y, 10, 50, 90);
+  tri_mf(cons_mf3, y, 60, 100, 140);
 
-    //Fuzzy inference system
-    //for(i=0;i<SIZE;i++){
-        w1=triangular(-3.6, -2, -0.4,input);
-        w2=triangular(-1.6, 0, 1.6,input);
-        w3=triangular(0.4, 2, 3.6,input);
-        qualified(qualified_cons_mf1,cons_mf1,w1);
-        qualified(qualified_cons_mf2,cons_mf3,w2);
-        qualified(qualified_cons_mf3,cons_mf3,w3);
-        out_mf(overall_out_mf,qualified_cons_mf1,qualified_cons_mf2,qualified_cons_mf3);
-        output= defuzzy(y,overall_out_mf);
-        return output;
-    //}
+  //Fuzzy inference system
+  //for(i=0;i<SIZE;i++){
+  w1 = triangular(-3.6, -2, -0.4, input);
+  w2 = triangular(-1.6, 0, 1.6, input);
+  w3 = triangular(0.4, 2, 3.6, input);
+  qualified(qualified_cons_mf1, cons_mf1, w1);
+  qualified(qualified_cons_mf2, cons_mf3, w2);
+  qualified(qualified_cons_mf3, cons_mf3, w3);
+  out_mf(overall_out_mf, qualified_cons_mf1, qualified_cons_mf2, qualified_cons_mf3);
+  output = defuzzy(y, overall_out_mf);
+  return output;
+  //}
 }
 
 
-function principal() {
-      var ms = 100;
-      window.setInterval(setOutputFuzzy, ms);
+function principal(modo) {
+  var ms = 100;
+
+  if (modo == 1) {
+     intervalID = window.setInterval(setOutputFuzzy, ms);
+    //navigator.showToast("Set Interval");
+  } else {
+    window.clearInterval(intervalID);
+    //navigator.showToast("Clear Interval");
+    cmd6(0,0);
+  }
+
 }
